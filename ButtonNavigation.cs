@@ -3,9 +3,9 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ButtonNavigation: MonoBehaviour
+public class ButtonNavigation : MonoBehaviour
 {
-        
+
     public void VerticalButtonNavigationFix(List<GameObject> buttonList)
     {
         if (buttonList.Count() > 1)
@@ -42,4 +42,39 @@ public class ButtonNavigation: MonoBehaviour
         }
     }
 
+    public void VerticalButtonNavigationFix(List<Button> buttonList)
+    {
+        if (buttonList.Count() > 1)
+        {
+            Navigation firstButton = buttonList[0].navigation;
+            firstButton.mode = Navigation.Mode.Explicit;
+            firstButton.selectOnUp = buttonList[buttonList.Count() - 1];
+            firstButton.selectOnDown = buttonList[1];
+            buttonList[0].navigation = firstButton;
+
+            Navigation lastButton = buttonList[buttonList.Count() - 1].navigation;
+            lastButton.mode = Navigation.Mode.Explicit;
+            lastButton.selectOnUp = buttonList[buttonList.Count() - 2];
+            lastButton.selectOnDown = buttonList[0];
+            buttonList[buttonList.Count() - 1].navigation = lastButton;
+        }
+    }
+
+    public void HorizontalButtonNavigationFix(List<Button> buttonList)
+    {
+        if (buttonList.Count() > 1)
+        {
+            Navigation firstButton = buttonList[0].navigation;
+            firstButton.mode = Navigation.Mode.Explicit;
+            firstButton.selectOnLeft = buttonList[buttonList.Count() - 1];
+            firstButton.selectOnRight = buttonList[1];
+            buttonList[0].navigation = firstButton;
+
+            Navigation lastButton = buttonList[buttonList.Count() - 1].navigation;
+            lastButton.mode = Navigation.Mode.Explicit;
+            lastButton.selectOnLeft = buttonList[buttonList.Count() - 2];
+            lastButton.selectOnRight = buttonList[0];
+            buttonList[buttonList.Count() - 1].navigation = lastButton;
+        }
+    }
 }
